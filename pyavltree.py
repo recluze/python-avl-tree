@@ -66,14 +66,14 @@ class AVLTree():
                 B.leftChild = A
                 A.parent = B                                                               
                 if F is None:                                                              
-                   self.rootNode = B 
-                   self.rootNode.parent = None                                                   
+                    self.rootNode = B 
+                    self.rootNode.parent = None                                                   
                 else:                                                                        
-                   if F.rightChild == A:                                                          
-                       F.rightChild = B                                                                  
-                   else:                                                                      
-                       F.leftChild = B                                                                   
-                   B.parent = F 
+                    if F.rightChild == A:                                                          
+                        F.rightChild = B                                                                  
+                    else:                                                                      
+                        F.leftChild = B                                                                   
+                    B.parent = F 
                 self.recompute_heights (A) 
                 self.recompute_heights (B.parent)                                                                                         
             else:
@@ -141,14 +141,14 @@ class AVLTree():
                 C.rightChild = A
                 A.parent = C
                 if F is None:
-                   self.rootNode = C
-                   self.rootNode.parent = None
+                    self.rootNode = C
+                    self.rootNode.parent = None
                 else:
-                   if (F.rightChild == A):
-                       F.rightChild = C
-                   else:
-                       F.leftChild = C
-                   C.parent = F
+                    if (F.rightChild == A):
+                        F.rightChild = C
+                    else:
+                        F.leftChild = C
+                    C.parent = F
                 self.recompute_heights (A)
                 self.recompute_heights (B)
                 
@@ -157,12 +157,12 @@ class AVLTree():
             node = self.rootNode
         else:
             node = args[0]
-        if (node  is None) or (node.is_leaf() and node.parent is None ):
+        if (node  is None) or (node.is_leaf() and node.parent is None):
             # trival - no sanity check needed, as either the tree is empty or there is only one node in the tree     
             pass    
         else:
             if node.height != node.max_children_height() + 1:
-                raise Exception ("Invalid height for node " + str(node) + ": " + str(node.height) + " instead of " + str(node.max_children_height() + 1) + "!" )
+                raise Exception ("Invalid height for node " + str(node) + ": " + str(node.height) + " instead of " + str(node.max_children_height() + 1) + "!")
                 
             balFactor = node.balance()
             #Test the balance factor
@@ -174,17 +174,17 @@ class AVLTree():
             if not (node.rightChild != node):
                 raise Exception ("Circular reference for node " + str(node) + ": node.rightChild is node!")
             
-            if ( node.leftChild ): 
+            if (node.leftChild): 
                 if not (node.leftChild.parent == node):
                     raise Exception ("Left child of node " + str(node) + " doesn't know who his father is!")
-                if not (node.leftChild.key <=  node.key):
+                if not (node.leftChild.key <= node.key):
                     raise Exception ("Key of left child of node " + str(node) + " is greater than key of his parent!")
                 self.sanity_check(node.leftChild)
             
-            if ( node.rightChild ): 
+            if (node.rightChild): 
                 if not (node.rightChild.parent == node):
                     raise Exception ("Right child of node " + str(node) + " doesn't know who his father is!")
-                if not (node.rightChild.key >=  node.key):
+                if not (node.rightChild.key >= node.key):
                     raise Exception ("Key of right child of node " + str(node) + " is less than key of his parent!")
                 self.sanity_check(node.rightChild)
             
@@ -269,7 +269,7 @@ class AVLTree():
                 node = node.parent
         return retlst
  
-    def preorder(self, node, retlst = None):
+    def preorder(self, node, retlst=None):
         if retlst is None:
             retlst = []
         retlst += [node.key]
@@ -279,7 +279,7 @@ class AVLTree():
             retlst = self.preorder(node.rightChild, retlst)
         return retlst         
            
-    def inorder(self, node, retlst = None):
+    def inorder(self, node, retlst=None):
         if retlst is None:
             retlst = [] 
         if node.leftChild:
@@ -289,7 +289,7 @@ class AVLTree():
             retlst = self.inorder(node.rightChild, retlst)
         return retlst
         
-    def postorder(self, node, retlst = None):
+    def postorder(self, node, retlst=None):
         if retlst is None:
             retlst = []
         if node.leftChild:
@@ -312,9 +312,9 @@ class AVLTree():
             return self.inorder_non_recursive()      
           
     def find(self, key):
-        return self.find_in_subtree (self.rootNode, key )
+        return self.find_in_subtree (self.rootNode, key)
     
-    def find_in_subtree (self,  node, key):
+    def find_in_subtree (self, node, key):
         if node is None:
             return None  # key not found
         if key < node.key:
@@ -445,22 +445,22 @@ class AVLTree():
             node1.parent = node2           
            
     # use for debug only and only with small trees            
-    def out(self, start_node = None):
+    def out(self, start_node=None):
         if start_node == None:
             start_node = self.rootNode
         space_symbol = "*"
         spaces_count = 80
         out_string = ""
-        initial_spaces_string  = space_symbol * spaces_count + "\n" 
+        initial_spaces_string = space_symbol * spaces_count + "\n" 
         if not start_node:
             return "AVLTree is empty"
         else:
             level = [start_node]
-            while (len([i for i in level if (not i is None)])>0):
+            while (len([i for i in level if (not i is None)]) > 0):
                 level_string = initial_spaces_string
                 for i in xrange(len(level)):
-                    j = (i+1)* spaces_count / (len(level)+1)
-                    level_string = level_string[:j] + (str(level[i]) if level[i] else space_symbol) + level_string[j+1:]
+                    j = (i + 1) * spaces_count / (len(level) + 1)
+                    level_string = level_string[:j] + (str(level[i]) if level[i] else space_symbol) + level_string[j + 1:]
                 level_next = []
                 for i in level:
                     level_next += ([i.leftChild, i.rightChild] if i else [None, None])
@@ -474,8 +474,8 @@ if __name__ == "__main__":
     a.sanity_check()
     
     """check not empty tree creation"""
-    seq = [1,2,3,4,5,6,7,8,9,10,11,12]
-    seq_copy = [1,2,3,4,5,6,7,8,9,10,11,12]
+    seq = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    seq_copy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     #random.shuffle(seq)
     b = AVLTree (seq)
     b.sanity_check()
@@ -497,4 +497,4 @@ if __name__ == "__main__":
     
     """check that an AVL tree's height is strictly less than 
     1.44*log2(N+2)-1 (there N is number of elements)"""
-    assert (c.height() < 1.44 * math.log(after_deletion+2, 2) - 1)
+    assert (c.height() < 1.44 * math.log(after_deletion + 2, 2) - 1)
