@@ -54,11 +54,20 @@ class AVLTree():
         self.update_balances(False)
         while self.balance < -1 or self.balance > 1: 
             if self.balance > 1:
+                if self.node.left.balance < 0:  
+                    self.node.left.lrotate() # we're in case II
+                    self.update_heights()
+                    self.update_balances()
                 self.rrotate()
                 self.update_heights()
                 self.update_balances()
-            if self.balance < -1: 
-                self.lrotate() 
+                
+            if self.balance < -1:
+                if self.node.right.balance > 0:  
+                    self.node.right.rrotate() # we're in case III
+                    self.update_heights()
+                    self.update_balances()
+                self.lrotate()
                 self.update_heights()
                 self.update_balances()
 
@@ -114,7 +123,7 @@ class AVLTree():
             self.balance = 0 
             
     def inorder_traverse(self):
-        if self.node  == None:
+        if self.node == None:
             return [] 
         
         inlist = [] 
@@ -150,7 +159,7 @@ class AVLTree():
 # Usage example
 if __name__ == "__main__": 
     a = AVLTree()
-    inlist = [1,2,3,4,5,0]
+    inlist = [ -2, 110, 7, 95, 25, 78, 1, -87, 23]
     for i in inlist: 
         a.insert(i)
          
