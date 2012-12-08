@@ -37,7 +37,7 @@ class Node():
 
 class AVLTree():
     def __init__(self, *args):
-        self.rootNode = None
+        self.node = None
         self.elements_count = 0
         self.rebalance_count = 0
         if len(args) == 1:
@@ -45,8 +45,8 @@ class AVLTree():
                 self.insert (i)
         
     def height(self):
-        if self.rootNode:
-            return self.rootNode.height
+        if self.node:
+            return self.node.height
         else:
             return 0
         
@@ -66,8 +66,8 @@ class AVLTree():
                 B.leftChild = A
                 A.parent = B                                                               
                 if F is None:                                                              
-                    self.rootNode = B 
-                    self.rootNode.parent = None                                                   
+                    self.node = B 
+                    self.node.parent = None                                                   
                 else:                                                                        
                     if F.rightChild == A:                                                          
                         F.rightChild = B                                                                  
@@ -92,8 +92,8 @@ class AVLTree():
                 C.leftChild = A
                 A.parent = C                                                             
                 if F is None:                                                             
-                    self.rootNode = C
-                    self.rootNode.parent = None                                                    
+                    self.node = C
+                    self.node.parent = None                                                    
                 else:                                                                        
                     if F.rightChild == A:                                                         
                         F.rightChild = C                                                                                     
@@ -115,8 +115,8 @@ class AVLTree():
                 B.rightChild = A
                 A.parent = B
                 if F is None:
-                    self.rootNode = B
-                    self.rootNode.parent = None                    
+                    self.node = B
+                    self.node.parent = None                    
                 else:
                     if F.rightChild == A:
                         F.rightChild = B
@@ -141,8 +141,8 @@ class AVLTree():
                 C.rightChild = A
                 A.parent = C
                 if F is None:
-                    self.rootNode = C
-                    self.rootNode.parent = None
+                    self.node = C
+                    self.node.parent = None
                 else:
                     if (F.rightChild == A):
                         F.rightChild = C
@@ -154,7 +154,7 @@ class AVLTree():
                 
     def sanity_check (self, *args):
         if len(args) == 0:
-            node = self.rootNode
+            node = self.node
         else:
             node = args[0]
         if (node  is None) or (node.is_leaf() and node.parent is None):
@@ -233,12 +233,12 @@ class AVLTree():
     
     def insert (self, key):
         new_node = Node (key)
-        if not self.rootNode:
-            self.rootNode = new_node
+        if not self.node:
+            self.node = new_node
         else:
             if not self.find(key):
                 self.elements_count += 1
-                self.add_as_child (self.rootNode, new_node)
+                self.add_as_child (self.node, new_node)
       
     def find_biggest(self, start_node):
         node = start_node
@@ -253,7 +253,7 @@ class AVLTree():
         return node
      
     def inorder_non_recursive (self):
-        node = self.rootNode
+        node = self.node
         retlst = []
         while node.leftChild:
             node = node.leftChild
@@ -300,19 +300,19 @@ class AVLTree():
         return retlst  
     
     def as_list (self, pre_in_post):
-        if not self.rootNode:
+        if not self.node:
             return []
         if pre_in_post == 0:
-            return self.preorder (self.rootNode)
+            return self.preorder (self.node)
         elif pre_in_post == 1:
-            return self.inorder (self.rootNode)
+            return self.inorder (self.node)
         elif pre_in_post == 2:
-            return self.postorder (self.rootNode)
+            return self.postorder (self.node)
         elif pre_in_post == 3:
             return self.inorder_non_recursive()      
           
     def find(self, key):
-        return self.find_in_subtree (self.rootNode, key)
+        return self.find_in_subtree (self.node, key)
     
     def find_in_subtree (self, node, key):
         if node is None:
@@ -359,7 +359,7 @@ class AVLTree():
                 parent.rightChild = None
             self.recompute_heights(parent)
         else:
-            self.rootNode = None
+            self.node = None
         del node
         # rebalance
         node = parent
@@ -425,7 +425,7 @@ class AVLTree():
                 parent1.rightChild = node2
             node2.parent = parent1
         else:
-            self.rootNode = node2
+            self.node = node2
             node2.parent = None
             
         node2.leftChild = leftChild1
@@ -447,7 +447,7 @@ class AVLTree():
     # use for debug only and only with small trees            
     def out(self, start_node=None):
         if start_node == None:
-            start_node = self.rootNode
+            start_node = self.node
         space_symbol = "*"
         spaces_count = 80
         out_string = ""

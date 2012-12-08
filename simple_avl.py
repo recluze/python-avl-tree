@@ -52,14 +52,15 @@ class AVLTree():
         # key inserted. Let's check if we're balanced
         self.update_heights(False)
         self.update_balances(False)
-        if self.balance > 1:
-            self.rrotate()
-            self.update_heights()
-            self.update_balances()
-        if self.balance < -1: 
-            self.lrotate() 
-            self.update_heights()
-            self.update_balances()
+        while self.balance < -1 or self.balance > 1: 
+            if self.balance > 1:
+                self.rrotate()
+                self.update_heights()
+                self.update_balances()
+            if self.balance < -1: 
+                self.lrotate() 
+                self.update_heights()
+                self.update_balances()
 
 
             
@@ -112,6 +113,22 @@ class AVLTree():
         else: 
             self.balance = 0 
             
+    def inorder_traverse(self):
+        if self.node  == None:
+            return [] 
+        
+        inlist = [] 
+        l = self.node.left.inorder_traverse()
+        for i in l: 
+            inlist.append(i) 
+
+        inlist.append(self.node.key)
+
+        l = self.node.right.inorder_traverse()
+        for i in l: 
+            inlist.append(i) 
+    
+        return inlist 
 
     def display(self, level=0, pref=''):
         '''
@@ -129,14 +146,16 @@ class AVLTree():
         
 
 
-if __name__ == "__main__": 
-    a = AVLTree() 
-    a.insert(5)
-    a.insert(4)
-    a.insert(3)
-    a.insert(2)
-    a.insert(1)
-    a.insert(0)
-    a.display()
 
+# Usage example
+if __name__ == "__main__": 
+    a = AVLTree()
+    inlist = [1,2,3,4,5,0]
+    for i in inlist: 
+        a.insert(i)
+         
+    a.display()
+    print 
+    print "Input            :", inlist 
+    print "Inorder traversal:", a.inorder_traverse() 
     
