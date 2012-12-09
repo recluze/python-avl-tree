@@ -3,9 +3,11 @@ See more at: http://csrdu.org/nauman
 
 Implementation of AVL trees in Python
 Class AVL Tree supports the following functionality:
- - Insertion in the tree using balancing rules 
+ - Insertion in the tree using balancing rules
+ - Deletion along with updation 
  - Displaying tree in a pseudo structured way 
  - Inorder traversal 
+ - Unit test cases to check for insertion, deletion and balance
  
 While I didn't take anything from the original github repo from 
 where this repo is forked, that is where I got the inspiration. 
